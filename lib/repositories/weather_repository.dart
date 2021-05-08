@@ -12,7 +12,7 @@ class WeatherRepository {
     final location = await client.searchLocation(city);
 
     if (location != null) {
-      return client.searchWeather(location.whoid);
+      return await client.searchWeather(location.woeid);
     }
 
     return null;

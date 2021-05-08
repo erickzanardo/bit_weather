@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bit_weather/repositories/weather_repository.dart';
 import 'package:bit_weather/weather_page/bloc/weather_event.dart';
 import 'package:bit_weather/weather_page/bloc/weather_state.dart';
@@ -24,8 +26,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       } else {
         yield WeatherNotFound();
       }
-    } catch (_) {
-      yield WeatherNotFound();
+    } catch (e) {
+      log('Error loading weather: $e');
+      yield WeatherLoadingFailed();
     }
   }
 }

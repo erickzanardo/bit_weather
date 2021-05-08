@@ -7,7 +7,7 @@ part 'location.g.dart';
 class Location extends Equatable {
   Location({
     required this.title,
-    required this.whoid,
+    required this.woeid,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) {
@@ -15,10 +15,10 @@ class Location extends Equatable {
   }
 
   final String title;
-  final int whoid;
+  final int woeid;
 
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 
   @override
-  List<Object?> get props => [title, whoid];
+  List<Object?> get props => [title, woeid];
 }

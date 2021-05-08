@@ -15,7 +15,7 @@ class WeatherApi {
         queryParameters: { 'query': query }
     );
 
-    final jsonResponse = response.data as List<Map<String, dynamic>>;
+    final jsonResponse = response.data as List<dynamic>;
     if (jsonResponse.isNotEmpty)
       return Location.fromJson(jsonResponse.first);
 
@@ -24,7 +24,7 @@ class WeatherApi {
 
   Future<WeatherLocation> searchWeather(int whoid) async {
     final response = await dio.get(
-        '${BitWeatherEnv.apiHost}location/search/$whoid',
+        '${BitWeatherEnv.apiHost}location/$whoid',
     );
 
     final jsonResponse = response.data as Map<String, dynamic>;
