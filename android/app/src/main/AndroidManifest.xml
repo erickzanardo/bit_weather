@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bitWeather">
+    package="com.example.bit_weather">
    <application
-        android:label="Bit Weather"
+        android:label="bit_weather"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

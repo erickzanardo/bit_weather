@@ -1,6 +1,6 @@
 {
-    "name": "Bit Weather",
-    "short_name": "Bit Weather",
+    "name": "bit_weather",
+    "short_name": "bit_weather",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
