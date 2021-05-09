@@ -5,8 +5,8 @@ void main() {
   group('Models - Location', () {
     test('Correctly serializes/deserializes', () {
       final original = Location(
-          title: 'Rome',
-          woeid: 10,
+        title: 'Rome',
+        woeid: 10,
       );
 
       final json = original.toJson();

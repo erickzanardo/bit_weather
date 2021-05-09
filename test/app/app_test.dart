@@ -62,18 +62,18 @@ void main() {
 
     testWidgets('Shows a loading message while searching', (tester) async {
       final weatherLocation = WeatherLocation(
-          location: Location(
-              title: 'Rome',
-              woeid: 10,
-          ),
-          weather: Weather(
-              id: 1,
-              minTemp: 10.0,
-              maxTemp: 20.0,
-              currentTemp: 15.0,
-              windSpeed: 10,
-              weatherState: WeatherType.clear,
-          ),
+        location: Location(
+          title: 'Rome',
+          woeid: 10,
+        ),
+        weather: Weather(
+          id: 1,
+          minTemp: 10.0,
+          maxTemp: 20.0,
+          currentTemp: 15.0,
+          windSpeed: 10,
+          weatherState: WeatherType.clear,
+        ),
       );
 
       final repositoryMock = WeatherRepositoryMock();
@@ -83,7 +83,6 @@ void main() {
       when(() => repositoryMock.fetchWeather('Rome')).thenAnswer(
         (_) async => requestCompleter.future,
       );
-
 
       final pageOject = AppPageObject(tester);
       await tester.pumpApp(App(repository: repositoryMock));
