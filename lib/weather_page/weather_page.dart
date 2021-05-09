@@ -16,6 +16,7 @@ class WeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        key: const Key('add_city_button'),
         child: const Icon(Icons.add),
         onPressed: () {
           showDialog(

@@ -35,6 +35,7 @@ class _LocationSelectionState extends State<LocationSelection> {
       child: Column(
         children: [
           TextField(
+            key: const Key('city_text_field'),
             controller: _controller,
           ),
           ElevatedButton(
