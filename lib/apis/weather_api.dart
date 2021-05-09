@@ -22,23 +22,31 @@ class WeatherApi {
     return null;
   }
 
-  Future<WeatherLocation> searchWeather(int whoid) async {
-    final response = await dio.get(
-        '${BitWeatherEnv.apiHost}location/$whoid',
-    );
+  Future<WeatherLocation?> searchWeather(int whoid) async {
+    try {
+      final response = await dio.get(
+          '${BitWeatherEnv.apiHost}location/$whoid',
+      );
 
-    final jsonResponse = response.data as Map<String, dynamic>;
+      final jsonResponse = response.data as Map<String, dynamic>;
 
-    final location = Location.fromJson(jsonResponse);
+      final location = Location.fromJson(jsonResponse);
 
-    final consolidatedWeatherArray =
-        jsonResponse['consolidated_weather'] as List<dynamic>;
+      final consolidatedWeatherArray =
+          jsonResponse['consolidated_weather'] as List<dynamic>;
 
-    final weather = Weather.fromJson(consolidatedWeatherArray.first);
+      final weather = Weather.fromJson(consolidatedWeatherArray.first);
 
-    return WeatherLocation(
-        location: location,
-        weather: weather,
-    );
+      return WeatherLocation(
+          location: location,
+          weather: weather,
+      );
+    }  on DioError catch(e) {
+      if (e.response?.statusCode == 404) {
+        return null;
+      }
+
+      rethrow;
+    }
   }
 }

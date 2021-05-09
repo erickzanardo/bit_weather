@@ -76,15 +76,56 @@ void main() {
         final api = WeatherApi(dio: dio);
         final weather = await api.searchWeather(44418);
 
-        expect(weather.location.title, 'London');
-        expect(weather.location.woeid, 44418);
+        expect(weather?.location.title, 'London');
+        expect(weather?.location.woeid, 44418);
 
-        expect(weather.weather.id, 5461767422476288);
-        expect(weather.weather.minTemp, 11.215);
-        expect(weather.weather.currentTemp, 19.52);
-        expect(weather.weather.maxTemp, 19.21);
-        expect(weather.weather.windSpeed, 9.539010474832311);
-        expect(weather.weather.weatherState, WeatherType.showers);
+        expect(weather?.weather.id, 5461767422476288);
+        expect(weather?.weather.minTemp, 11.215);
+        expect(weather?.weather.currentTemp, 19.52);
+        expect(weather?.weather.maxTemp, 19.21);
+        expect(weather?.weather.windSpeed, 9.539010474832311);
+        expect(weather?.weather.weatherState, WeatherType.showers);
+      });
+
+      test('returns null when API returns not found', () async {
+        final dioAdapter = DioAdapter();
+        final dio = Dio()
+            ..httpClientAdapter = dioAdapter;
+
+        final path = '${BitWeatherEnv.apiHost}location/44418';
+        dioAdapter.onGet(
+            path,
+            (request) => request.reply(
+                404,
+                jsonDecode('{"detail":"Not found."}'),
+            ),
+        );
+
+        final api = WeatherApi(dio: dio);
+        final weather = await api.searchWeather(44418);
+
+        expect(weather, null);
+      });
+
+      test('rethrows any other errors that isn\'t a 404', () async {
+        final dioAdapter = DioAdapter();
+        final dio = Dio()
+            ..httpClientAdapter = dioAdapter;
+
+        final path = '${BitWeatherEnv.apiHost}location/44418';
+        dioAdapter.onGet(
+            path,
+            (request) => request.reply(
+                500,
+                '',
+            ),
+        );
+
+        final api = WeatherApi(dio: dio);
+
+        expect(() async {
+          await api.searchWeather(44418);
+        }, throwsA(isA<DioError>()));
       });
     });
   });
