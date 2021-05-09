@@ -1,0 +1,7 @@
+{
+    "@@locale": "pt",
+    "searchButtonLabel": "Buscar",
+    "@searchButtonLabel": {
+        "description": "Label para botão buscar na seleção de localização"
+    }
+}

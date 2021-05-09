@@ -1,7 +1,7 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+    "searchButtonLabel": "Search",
+    "@searchButtonLabel": {
+        "description": "Search label for Location selection"
     }
 }

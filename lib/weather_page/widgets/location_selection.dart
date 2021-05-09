@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bit_weather/l10n/l10n.dart';
 
 class LocationSelection extends StatefulWidget {
   LocationSelection({
@@ -29,6 +30,7 @@ class _LocationSelectionState extends State<LocationSelection> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Dialog(
       child: Column(
         children: [
@@ -37,7 +39,7 @@ class _LocationSelectionState extends State<LocationSelection> {
           ),
           ElevatedButton(
               onPressed: _onSelect,
-              child: const Text('Search'),
+              child: Text(l10n.searchButtonLabel),
           )
         ],
       ),
