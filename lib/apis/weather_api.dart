@@ -30,7 +30,11 @@ class WeatherApi {
     final jsonResponse = response.data as Map<String, dynamic>;
 
     final location = Location.fromJson(jsonResponse);
-    final weather = Weather.fromJson(jsonResponse['consolidated_weather']);
+
+    final consolidatedWeatherArray =
+        jsonResponse['consolidated_weather'] as List<dynamic>;
+
+    final weather = Weather.fromJson(consolidatedWeatherArray.first);
 
     return WeatherLocation(
         location: location,
