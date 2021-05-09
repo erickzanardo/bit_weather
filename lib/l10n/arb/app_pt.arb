@@ -3,5 +3,9 @@
     "searchButtonLabel": "Buscar",
     "@searchButtonLabel": {
         "description": "Label para botão buscar na seleção de localização"
+    },
+    "emptyLocation": "Nenhuma localização selecionada",
+    "@emptyLocation": {
+        "description": "Mensagem para quando nenhuma localização foi selecionada ainda"
     }
 }
