@@ -6,10 +6,12 @@ class WeatherLocation extends Equatable {
   WeatherLocation({
     required this.location,
     required this.weather,
+    required this.updatedAt,
   });
 
   final Location location;
   final Weather weather;
+  final DateTime updatedAt;
 
   @override
   List<Object?> get props => [location, weather];

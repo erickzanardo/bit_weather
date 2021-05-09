@@ -73,6 +73,7 @@ void main() {
         final api = WeatherApi(dio: dio);
         final weather = await api.searchWeather(44418);
 
+        expect(weather?.updatedAt, isNotNull);
         expect(weather?.location.title, 'London');
         expect(weather?.location.woeid, 44418);
 

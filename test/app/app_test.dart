@@ -35,6 +35,7 @@ void main() {
 
       when(() => repositoryMock.fetchWeather('Rome')).thenAnswer(
         (_) async => WeatherLocation(
+          updatedAt: DateTime.now(),
           location: Location(
             title: 'Rome',
             woeid: 10,
@@ -56,12 +57,13 @@ void main() {
       await pageOject.openCitySelection();
       await pageOject.selectCity('Rome');
 
-      expect(find.text('Rome'), findsOneWidget);
-      expect(find.text('15.0'), findsOneWidget);
+      expect(find.text('City: Rome'), findsOneWidget);
+      expect(find.text('Current: 15.0'), findsOneWidget);
     });
 
     testWidgets('Shows a loading message while searching', (tester) async {
       final weatherLocation = WeatherLocation(
+        updatedAt: DateTime.now(),
         location: Location(
           title: 'Rome',
           woeid: 10,
@@ -94,8 +96,8 @@ void main() {
       requestCompleter.complete(weatherLocation);
       await tester.pumpAndSettle();
 
-      expect(find.text('Rome'), findsOneWidget);
-      expect(find.text('15.0'), findsOneWidget);
+      expect(find.text('City: Rome'), findsOneWidget);
+      expect(find.text('Current: 15.0'), findsOneWidget);
     });
 
     testWidgets(

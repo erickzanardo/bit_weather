@@ -7,5 +7,10 @@
     "emptyLocation": "No location selected yet",
     "@emptyLocation": {
         "description": "Message for when nothing is selected yet"
-    }
+    },
+    "city": "City",
+    "currentTemp": "Current",
+    "minTemp": "Min",
+    "maxTemp": "Max",
+    "updatedAt": "Updated at"
 }

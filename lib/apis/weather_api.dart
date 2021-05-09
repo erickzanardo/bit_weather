@@ -37,6 +37,7 @@ class WeatherApi {
       return WeatherLocation(
         location: location,
         weather: weather,
+        updatedAt: DateTime.now(),
       );
     } on DioError catch (e) {
       if (e.response?.statusCode == 404) {

@@ -22,6 +22,7 @@ void main() {
         );
         when(() => apiMock.searchWeather(10)).thenAnswer(
           (_) async => WeatherLocation(
+            updatedAt: DateTime.now(),
             location: Location(
               title: 'Rome',
               woeid: 10,

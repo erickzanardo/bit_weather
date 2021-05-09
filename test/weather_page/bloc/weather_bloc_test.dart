@@ -14,6 +14,7 @@ class WeatherRepositoryMock extends Mock implements WeatherRepository {}
 
 void main() {
   final weatherLocation = WeatherLocation(
+    updatedAt: DateTime.now(),
     location: Location(
       title: 'Treviso',
       woeid: 20,
