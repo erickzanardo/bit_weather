@@ -14,26 +14,26 @@ void main() {
     group('fetchWeather', () {
       test('returns the weather for the city', () async {
         final apiMock = WeatherApiMock();
-        when(() => apiMock.searchLocation('Rome')).thenAnswer((_) async => 
-          Location(
+        when(() => apiMock.searchLocation('Rome')).thenAnswer(
+          (_) async => Location(
             title: 'Rome',
             woeid: 10,
           ),
         );
-        when(() => apiMock.searchWeather(10)).thenAnswer((_) async => 
-          WeatherLocation(
-              location: Location(
-                  title: 'Rome',
-                  woeid: 10,
-              ),
-              weather: Weather(
-                  id: 1,
-                  minTemp: 10,
-                  maxTemp: 20,
-                  currentTemp: 15,
-                  windSpeed: 10,
-                  weatherState: WeatherType.clear,
-              ),
+        when(() => apiMock.searchWeather(10)).thenAnswer(
+          (_) async => WeatherLocation(
+            location: Location(
+              title: 'Rome',
+              woeid: 10,
+            ),
+            weather: Weather(
+              id: 1,
+              minTemp: 10,
+              maxTemp: 20,
+              currentTemp: 15,
+              windSpeed: 10,
+              weatherState: WeatherType.clear,
+            ),
           ),
         );
         final repository = WeatherRepository(client: apiMock);
@@ -59,14 +59,13 @@ void main() {
 
       test('returns null if the weather isn\'t found', () async {
         final apiMock = WeatherApiMock();
-        when(() => apiMock.searchLocation('Rome')).thenAnswer((_) async => 
-          Location(
+        when(() => apiMock.searchLocation('Rome')).thenAnswer(
+          (_) async => Location(
             title: 'Rome',
             woeid: 10,
           ),
         );
-        when(() => apiMock.searchWeather(10))
-            .thenAnswer((_) async => null);
+        when(() => apiMock.searchWeather(10)).thenAnswer((_) async => null);
 
         final repository = WeatherRepository(client: apiMock);
 

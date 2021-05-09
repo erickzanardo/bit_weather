@@ -38,8 +38,8 @@ class _LocationSelectionState extends State<LocationSelection> {
             controller: _controller,
           ),
           ElevatedButton(
-              onPressed: _onSelect,
-              child: Text(l10n.searchButtonLabel),
+            onPressed: _onSelect,
+            child: Text(l10n.searchButtonLabel),
           )
         ],
       ),

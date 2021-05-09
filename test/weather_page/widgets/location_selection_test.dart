@@ -23,9 +23,9 @@ void main() {
       final stub = StubWrapperMock();
 
       await tester.pumpApp(
-          LocationSelection(
-              onSelect: stub.onSelect,
-          ),
+        LocationSelection(
+          onSelect: stub.onSelect,
+        ),
       );
 
       await tester.enterText(find.byType(TextField), 'Rome');

@@ -5,19 +5,16 @@ import 'package:bit_weather/models/weather_location.dart';
 import 'package:dio/dio.dart';
 
 class WeatherApi {
-  WeatherApi({ required this.dio });
+  WeatherApi({required this.dio});
 
   final Dio dio;
 
   Future<Location?> searchLocation(String query) async {
-    final response = await dio.get(
-        '${BitWeatherEnv.apiHost}location/search',
-        queryParameters: { 'query': query }
-    );
+    final response = await dio.get('${BitWeatherEnv.apiHost}location/search',
+        queryParameters: {'query': query});
 
     final jsonResponse = response.data as List<dynamic>;
-    if (jsonResponse.isNotEmpty)
-      return Location.fromJson(jsonResponse.first);
+    if (jsonResponse.isNotEmpty) return Location.fromJson(jsonResponse.first);
 
     return null;
   }
@@ -25,7 +22,7 @@ class WeatherApi {
   Future<WeatherLocation?> searchWeather(int whoid) async {
     try {
       final response = await dio.get(
-          '${BitWeatherEnv.apiHost}location/$whoid',
+        '${BitWeatherEnv.apiHost}location/$whoid',
       );
 
       final jsonResponse = response.data as Map<String, dynamic>;
@@ -38,10 +35,10 @@ class WeatherApi {
       final weather = Weather.fromJson(consolidatedWeatherArray.first);
 
       return WeatherLocation(
-          location: location,
-          weather: weather,
+        location: location,
+        weather: weather,
       );
-    }  on DioError catch(e) {
+    } on DioError catch (e) {
       if (e.response?.statusCode == 404) {
         return null;
       }

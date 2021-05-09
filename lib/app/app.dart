@@ -27,8 +27,8 @@ class App extends StatelessWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       home: BlocProvider(
-          create: (context) => WeatherBloc(repository: repository),
-          child: WeatherPage(),
+        create: (context) => WeatherBloc(repository: repository),
+        child: WeatherPage(),
       ),
     );
   }

@@ -15,17 +15,16 @@ void main() {
     group('searchLocation', () {
       test('returns a Location', () async {
         final dioAdapter = DioAdapter();
-        final dio = Dio()
-            ..httpClientAdapter = dioAdapter;
+        final dio = Dio()..httpClientAdapter = dioAdapter;
 
         final path = '${BitWeatherEnv.apiHost}location/search';
         dioAdapter.onGet(
-            path,
-            (request) => request.reply(
-                200,
-                jsonDecode(locationJson),
-            ),
-            queryParameters: { 'query': 'london' },
+          path,
+          (request) => request.reply(
+            200,
+            jsonDecode(locationJson),
+          ),
+          queryParameters: {'query': 'london'},
         );
 
         final api = WeatherApi(dio: dio);
@@ -38,17 +37,16 @@ void main() {
       test('returns null when nothing is found', () async {
         final json = '[ ]';
         final dioAdapter = DioAdapter();
-        final dio = Dio()
-            ..httpClientAdapter = dioAdapter;
+        final dio = Dio()..httpClientAdapter = dioAdapter;
 
         final path = '${BitWeatherEnv.apiHost}location/search';
         dioAdapter.onGet(
-            path,
-            (request) => request.reply(
-                200,
-                jsonDecode(json),
-            ),
-            queryParameters: { 'query': 'london' },
+          path,
+          (request) => request.reply(
+            200,
+            jsonDecode(json),
+          ),
+          queryParameters: {'query': 'london'},
         );
 
         final api = WeatherApi(dio: dio);
@@ -61,16 +59,15 @@ void main() {
     group('searchWeather', () {
       test('returns a Weather', () async {
         final dioAdapter = DioAdapter();
-        final dio = Dio()
-            ..httpClientAdapter = dioAdapter;
+        final dio = Dio()..httpClientAdapter = dioAdapter;
 
         final path = '${BitWeatherEnv.apiHost}location/44418';
         dioAdapter.onGet(
-            path,
-            (request) => request.reply(
-                200,
-                jsonDecode(weatherJson),
-            ),
+          path,
+          (request) => request.reply(
+            200,
+            jsonDecode(weatherJson),
+          ),
         );
 
         final api = WeatherApi(dio: dio);
@@ -89,16 +86,15 @@ void main() {
 
       test('returns null when API returns not found', () async {
         final dioAdapter = DioAdapter();
-        final dio = Dio()
-            ..httpClientAdapter = dioAdapter;
+        final dio = Dio()..httpClientAdapter = dioAdapter;
 
         final path = '${BitWeatherEnv.apiHost}location/44418';
         dioAdapter.onGet(
-            path,
-            (request) => request.reply(
-                404,
-                jsonDecode('{"detail":"Not found."}'),
-            ),
+          path,
+          (request) => request.reply(
+            404,
+            jsonDecode('{"detail":"Not found."}'),
+          ),
         );
 
         final api = WeatherApi(dio: dio);
@@ -109,16 +105,15 @@ void main() {
 
       test('rethrows any other errors that isn\'t a 404', () async {
         final dioAdapter = DioAdapter();
-        final dio = Dio()
-            ..httpClientAdapter = dioAdapter;
+        final dio = Dio()..httpClientAdapter = dioAdapter;
 
         final path = '${BitWeatherEnv.apiHost}location/44418';
         dioAdapter.onGet(
-            path,
-            (request) => request.reply(
-                500,
-                '',
-            ),
+          path,
+          (request) => request.reply(
+            500,
+            '',
+          ),
         );
 
         final api = WeatherApi(dio: dio);

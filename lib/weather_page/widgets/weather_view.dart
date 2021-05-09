@@ -10,11 +10,11 @@ class WeatherView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(information.location.title),
-          Text('${information.weather.currentTemp}'),
-        ],
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(information.location.title),
+        Text('${information.weather.currentTemp}'),
+      ],
     );
   }
 }

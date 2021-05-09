@@ -6,7 +6,7 @@ import 'package:bit_weather/weather_page/bloc/weather_state.dart';
 import 'package:bloc/bloc.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  WeatherBloc({ required this.repository }) : super(WeatherEmpty());
+  WeatherBloc({required this.repository}) : super(WeatherEmpty());
 
   final WeatherRepository repository;
 
