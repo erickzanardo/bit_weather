@@ -1,5 +1,4 @@
 import 'package:bit_weather/weather_page/widgets/weather_view.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bit_weather/models/location.dart';
