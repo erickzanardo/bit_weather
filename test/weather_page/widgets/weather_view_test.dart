@@ -10,19 +10,19 @@ import '../../helpers/helpers.dart';
 
 void main() {
   final weather = WeatherLocation(
-      updatedAt: DateTime( 2021, 5, 9, 3, 20, 0,  0, 0),
-      location: Location(
-          title: 'Rome',
-          woeid: 10,
-      ),
-      weather: Weather(
-          id: 1,
-          minTemp: 10.0,
-          maxTemp: 20.0,
-          currentTemp: 15.0,
-          windSpeed: 10,
-          weatherState: WeatherType.clear,
-      ),
+    updatedAt: DateTime(2021, 5, 9, 3, 20, 0, 0, 0),
+    location: Location(
+      title: 'Rome',
+      woeid: 10,
+    ),
+    weather: Weather(
+      id: 1,
+      minTemp: 10.0,
+      maxTemp: 20.0,
+      currentTemp: 15.0,
+      windSpeed: 10,
+      weatherState: WeatherType.clear,
+    ),
   );
 
   group('WeatherPage - WeatherView', () {
