@@ -3,6 +3,29 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'weather.g.dart';
 
+enum WeatherType {
+  @JsonValue('sn')
+  snow,
+  @JsonValue('sl')
+  sleet,
+  @JsonValue('h')
+  hail,
+  @JsonValue('t')
+  thunderstorm,
+  @JsonValue('hr')
+  heavyRain,
+  @JsonValue('lr')
+  lightRain,
+  @JsonValue('s')
+  showers,
+  @JsonValue('hc')
+  heavyCloud,
+  @JsonValue('lc')
+  lightCloud,
+  @JsonValue('c')
+  clear,
+}
+
 @JsonSerializable()
 class Weather extends Equatable {
   Weather({
@@ -26,7 +49,7 @@ class Weather extends Equatable {
   @JsonKey(name: 'the_temp')
   final double currentTemp;
   @JsonKey(name: 'weather_state_abbr')
-  final String weatherState;
+  final WeatherType weatherState;
   @JsonKey(name: 'wind_speed')
   final double windSpeed;
 

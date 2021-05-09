@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bit_weather/apis/weather_api.dart';
 import 'package:bit_weather/env.dart';
+import 'package:bit_weather/models/weather.dart';
 import 'package:dio/dio.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:test/test.dart';
@@ -83,7 +84,7 @@ void main() {
         expect(weather.weather.currentTemp, 19.52);
         expect(weather.weather.maxTemp, 19.21);
         expect(weather.weather.windSpeed, 9.539010474832311);
-        expect(weather.weather.weatherState, 's');
+        expect(weather.weather.weatherState, WeatherType.showers);
       });
     });
   });
