@@ -43,14 +43,16 @@ class _SettingsPanelState extends State<SettingsPanel> {
     return Container(
       height: 150,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          // TODO l10n
-          Text('Settings', style: Theme.of(context).textTheme.headline5),
+          Text(l10n.settings, style: Theme.of(context).textTheme.headline5),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(l10n.useCelsiusLabel),
               Switch(
+                  key: const Key('toggle_units_type'),
                   value: _useCelsius,
                   onChanged: (value) {
                     setState(() => _useCelsius = value);

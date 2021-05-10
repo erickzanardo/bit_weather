@@ -14,5 +14,6 @@
     "maxTemp": "Máxima",
     "updatedAt": "Atualizado em",
     "save": "Salvar",
-    "useCelsiusLabel": "Use Celsius como medidas"
+    "useCelsiusLabel": "Use Celsius como medidas",
+    "settings": "Configurações"
 }
