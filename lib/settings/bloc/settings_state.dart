@@ -1,17 +1,13 @@
+import 'package:bit_weather/models/settings.dart';
 import 'package:equatable/equatable.dart';
-
-enum UnitType {
-  fahrenheit,
-  celsius,
-}
 
 class SettingsState extends Equatable {
   SettingsState({
-    required this.units,
+    required this.settings,
   });
 
-  final UnitType units;
+  final Settings settings;
 
   @override
-  List<Object?> get props => [units];
+  List<Object?> get props => [settings];
 }

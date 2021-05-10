@@ -1,6 +1,7 @@
 import 'package:bit_weather/settings/bloc/settings_bloc.dart';
 import 'package:bit_weather/settings/bloc/settings_event.dart';
 import 'package:bit_weather/settings/bloc/settings_state.dart';
+import 'package:bit_weather/models/settings.dart';
 import 'package:test/test.dart';
 import 'package:bloc_test/bloc_test.dart';
 
@@ -15,8 +16,8 @@ void main() {
           ..add(const ToggleTemperatureUnits());
       },
       expect: () => [
-        SettingsState(units: UnitType.fahrenheit),
-        SettingsState(units: UnitType.celsius),
+        SettingsState(settings: Settings(units: UnitType.fahrenheit)),
+        SettingsState(settings: Settings(units: UnitType.celsius)),
       ],
     );
   });

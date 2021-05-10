@@ -12,5 +12,7 @@
     "currentTemp": "Current",
     "minTemp": "Min",
     "maxTemp": "Max",
-    "updatedAt": "Updated at"
+    "updatedAt": "Updated at",
+    "save": "Save",
+    "useCelsiusLabel": "Use Celsius as units"
 }
