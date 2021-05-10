@@ -14,5 +14,8 @@
     "updatedAt": "Atualizado em",
     "save": "Salvar",
     "useCelsiusLabel": "Use Celsius como medidas",
-    "settings": "Configurações"
+    "settings": "Configurações",
+    "errorView": "Problemas ao buscar previsão, por favor tente novamente",
+    "loadingView": "Pesquisando...",
+    "locationNotFoundView": "Cidade não encontrada"
 }
