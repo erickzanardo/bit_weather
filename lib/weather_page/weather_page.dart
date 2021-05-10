@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +13,29 @@ import 'package:bit_weather/weather_page/widgets/not_found_view.dart';
 import 'package:bit_weather/weather_page/widgets/loading_view.dart';
 import 'package:bit_weather/weather_page/bloc/weather_event.dart';
 
-class WeatherPage extends StatelessWidget {
+class WeatherPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _WeatherPageState();
+  }
+}
+
+class _WeatherPageState extends State<WeatherPage> {
+  Completer<void>? _refreshCompleter;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> _onRefresh(String city) {
+    BlocProvider.of<WeatherBloc>(context).add(
+      WeatherRefresh(city),
+    );
+    final completer = _refreshCompleter = Completer<void>();
+    return completer.future;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,10 +58,21 @@ class WeatherPage extends StatelessWidget {
         },
       ),
       body: Center(
-        child: BlocBuilder<WeatherBloc, WeatherState>(
+        child: BlocConsumer<WeatherBloc, WeatherState>(
+          listener: (context, state) {
+            if (state is WeatherLoaded) {
+              _refreshCompleter?.complete();
+            }
+          },
           builder: (context, state) {
             if (state is WeatherLoaded) {
-              return WeatherView(information: state.weather);
+              return RefreshIndicator(
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: WeatherView(information: state.weather),
+                ),
+                onRefresh: () => _onRefresh(state.weather.location.title),
+              );
             }
 
             if (state is WeatherLoading) {

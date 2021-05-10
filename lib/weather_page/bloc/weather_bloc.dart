@@ -14,6 +14,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
     if (event is WeatherSearch) {
       yield* _mapWeatherSearch(event);
+    } else if (event is WeatherRefresh) {
+      yield* _mapWeatherRefresh(event);
     }
   }
 
@@ -29,6 +31,17 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     } catch (e) {
       log('Error loading weather: $e');
       yield WeatherLoadingFailed();
+    }
+  }
+
+  Stream<WeatherState> _mapWeatherRefresh(WeatherRefresh event) async* {
+    try {
+      final response = await repository.fetchWeather(event.cityName);
+      if (response != null) {
+        yield WeatherLoaded(weather: response);
+      }
+    } catch (e) {
+      log('Error refreshing weather: $e');
     }
   }
 }

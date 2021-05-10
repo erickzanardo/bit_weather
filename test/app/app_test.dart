@@ -15,6 +15,21 @@ import 'app_page_object.dart';
 class WeatherRepositoryMock extends Mock implements WeatherRepository {}
 
 void main() {
+  final createWeatherLocation = () => WeatherLocation(
+        updatedAt: DateTime.now(),
+        location: Location(
+          title: 'Rome',
+          woeid: 10,
+        ),
+        weather: Weather(
+          id: 1,
+          minTemp: 10.0,
+          maxTemp: 20.0,
+          currentTemp: 15.0,
+          windSpeed: 10,
+          weatherState: WeatherType.clear,
+        ),
+      );
   group('App', () {
     testWidgets('Renders the app correctly', (tester) async {
       await tester.pumpApp(App(repository: WeatherRepositoryMock()));
@@ -34,21 +49,7 @@ void main() {
       final repositoryMock = WeatherRepositoryMock();
 
       when(() => repositoryMock.fetchWeather('Rome')).thenAnswer(
-        (_) async => WeatherLocation(
-          updatedAt: DateTime.now(),
-          location: Location(
-            title: 'Rome',
-            woeid: 10,
-          ),
-          weather: Weather(
-            id: 1,
-            minTemp: 10.0,
-            maxTemp: 20.0,
-            currentTemp: 15.0,
-            windSpeed: 10,
-            weatherState: WeatherType.clear,
-          ),
-        ),
+        (_) async => createWeatherLocation(),
       );
 
       final pageOject = AppPageObject(tester);
@@ -62,21 +63,7 @@ void main() {
     });
 
     testWidgets('Shows a loading message while searching', (tester) async {
-      final weatherLocation = WeatherLocation(
-        updatedAt: DateTime.now(),
-        location: Location(
-          title: 'Rome',
-          woeid: 10,
-        ),
-        weather: Weather(
-          id: 1,
-          minTemp: 10.0,
-          maxTemp: 20.0,
-          currentTemp: 15.0,
-          windSpeed: 10,
-          weatherState: WeatherType.clear,
-        ),
-      );
+      final weatherLocation = createWeatherLocation();
 
       final repositoryMock = WeatherRepositoryMock();
 
@@ -136,5 +123,22 @@ void main() {
         expect(find.text('Error'), findsOneWidget);
       },
     );
+
+    testWidgets('Refreshs', (tester) async {
+      final repositoryMock = WeatherRepositoryMock();
+
+      when(() => repositoryMock.fetchWeather('Rome')).thenAnswer(
+        (_) async => createWeatherLocation(),
+      );
+
+      final pageOject = AppPageObject(tester);
+      await tester.pumpApp(App(repository: repositoryMock));
+
+      await pageOject.openCitySelection();
+      await pageOject.selectCity('Rome');
+      await pageOject.pullToRefresh();
+
+      verify(() => repositoryMock.fetchWeather('Rome')).called(2);
+    });
   });
 }

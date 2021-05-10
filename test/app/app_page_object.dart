@@ -1,3 +1,4 @@
+import 'package:bit_weather/weather_page/widgets/weather_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -19,6 +20,16 @@ class AppPageObject {
 
     final searchButton = find.text('Search');
     await tester.tap(searchButton);
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> pullToRefresh() async {
+    final view = find.byType(WeatherView);
+    await tester.fling(
+      view,
+      const Offset(0, 100),
+      100,
+    );
     await tester.pumpAndSettle();
   }
 }

@@ -12,3 +12,12 @@ class WeatherSearch extends WeatherEvent {
   @override
   List<Object?> get props => [cityName];
 }
+
+class WeatherRefresh extends WeatherEvent {
+  const WeatherRefresh(this.cityName);
+
+  final String cityName;
+
+  @override
+  List<Object?> get props => [cityName];
+}

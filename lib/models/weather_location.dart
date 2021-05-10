@@ -14,5 +14,5 @@ class WeatherLocation extends Equatable {
   final DateTime updatedAt;
 
   @override
-  List<Object?> get props => [location, weather];
+  List<Object?> get props => [location, weather, updatedAt];
 }
