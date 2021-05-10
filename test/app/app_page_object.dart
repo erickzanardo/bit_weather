@@ -32,4 +32,18 @@ class AppPageObject {
     );
     await tester.pumpAndSettle();
   }
+
+  Future<void> toggleUnitType() async {
+    final openSettings = find.byKey(const Key('open_settings_button'));
+    await tester.tap(openSettings);
+    await tester.pumpAndSettle();
+
+    final toggleSwitch = find.byKey(const Key('toggle_units_type'));
+    await tester.tap(toggleSwitch);
+    await tester.pumpAndSettle();
+
+    final saveButton = find.text('Save');
+    await tester.tap(saveButton);
+    await tester.pumpAndSettle();
+  }
 }

@@ -1,7 +1,8 @@
 import 'package:bit_weather/repositories/weather_repository.dart';
 import 'package:bit_weather/settings/bloc/settings_bloc.dart';
+import 'package:bit_weather/settings/bloc/settings_event.dart';
 import 'package:bit_weather/settings/bloc/settings_state.dart';
-import 'package:bit_weather/settings/bloc/widgets/settings_panel.dart';
+import 'package:bit_weather/settings/widgets/settings_panel.dart';
 import 'package:bit_weather/weather_page/bloc/weather_bloc.dart';
 import 'package:bit_weather/weather_page/weather_page.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class App extends StatelessWidget {
             return Scaffold(
               body: BlocProvider(
                 create: (context) => WeatherBloc(repository: repository),
-                child: WeatherPage(),
+                child: WeatherPage(settings: state.settings),
               ),
               floatingActionButton: Builder(builder: (context) {
                 // Using builder here as we need the context from our parent
@@ -47,10 +48,12 @@ class App extends StatelessWidget {
                   onPressed: () {
                     showBottomSheet(
                       context: context,
-                      builder: (_) {
+                      builder: (context) {
                         return SettingsPanel(
                           onSave: (settings) {
-                            // TODO
+                            BlocProvider.of<SettingsBloc>(context).add(
+                              UpdateSettings(settings),
+                            );
                           },
                           currentSettings: state.settings,
                         );

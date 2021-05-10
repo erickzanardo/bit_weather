@@ -11,13 +11,10 @@ void main() {
       'Toggles the temperature unit',
       build: () => SettingsBloc(),
       act: (bloc) {
-        bloc
-          ..add(const ToggleTemperatureUnits())
-          ..add(const ToggleTemperatureUnits());
+        return bloc.add(UpdateSettings(Settings(units: UnitType.fahrenheit)));
       },
       expect: () => [
         SettingsState(settings: Settings(units: UnitType.fahrenheit)),
-        SettingsState(settings: Settings(units: UnitType.celsius)),
       ],
     );
   });

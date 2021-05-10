@@ -9,7 +9,6 @@
         "description": "Mensagem para quando nenhuma localização foi selecionada ainda"
     },
     "city": "Cidade",
-    "currentTemp": "Atual",
     "minTemp": "Mínima",
     "maxTemp": "Máxima",
     "updatedAt": "Atualizado em",

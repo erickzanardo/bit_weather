@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bit_weather/models/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +15,12 @@ import 'package:bit_weather/weather_page/widgets/loading_view.dart';
 import 'package:bit_weather/weather_page/bloc/weather_event.dart';
 
 class WeatherPage extends StatefulWidget {
+  WeatherPage({
+    required this.settings,
+  });
+
+  final Settings settings;
+
   @override
   State<StatefulWidget> createState() {
     return _WeatherPageState();
@@ -75,7 +82,10 @@ class _WeatherPageState extends State<WeatherPage> {
                   return RefreshIndicator(
                     child: SingleChildScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
-                      child: WeatherView(information: state.weather),
+                      child: WeatherView(
+                        information: state.weather,
+                        unitType: widget.settings.units,
+                      ),
                     ),
                     onRefresh: () => _onRefresh(state.weather.location.title),
                   );

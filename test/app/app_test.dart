@@ -59,7 +59,7 @@ void main() {
       await pageOject.selectCity('Rome');
 
       expect(find.text('City: Rome'), findsOneWidget);
-      expect(find.text('Current: 15.0'), findsOneWidget);
+      expect(find.text('15C°'), findsOneWidget);
     });
 
     testWidgets('Shows a loading message while searching', (tester) async {
@@ -84,7 +84,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('City: Rome'), findsOneWidget);
-      expect(find.text('Current: 15.0'), findsOneWidget);
+      expect(find.text('15C°'), findsOneWidget);
     });
 
     testWidgets(
@@ -139,6 +139,27 @@ void main() {
       await pageOject.pullToRefresh();
 
       verify(() => repositoryMock.fetchWeather('Rome')).called(2);
+    });
+
+    testWidgets('Can change the units', (tester) async {
+      final repositoryMock = WeatherRepositoryMock();
+
+      when(() => repositoryMock.fetchWeather('Rome')).thenAnswer(
+        (_) async => createWeatherLocation(),
+      );
+
+      final pageOject = AppPageObject(tester);
+      await tester.pumpApp(App(repository: repositoryMock));
+
+      await pageOject.openCitySelection();
+      await pageOject.selectCity('Rome');
+
+      // Making sure that the search worked
+      expect(find.text('City: Rome'), findsOneWidget);
+      expect(find.text('15C°'), findsOneWidget);
+
+      await pageOject.toggleUnitType();
+      expect(find.text('59F°'), findsOneWidget);
     });
   });
 }

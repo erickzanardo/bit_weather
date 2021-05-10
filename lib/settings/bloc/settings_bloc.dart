@@ -13,13 +13,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   @override
   Stream<SettingsState> mapEventToState(SettingsEvent event) async* {
-    if (event is ToggleTemperatureUnits) {
-      final newSettings = Settings(
-        units: state.settings.units == UnitType.celsius
-            ? UnitType.fahrenheit
-            : UnitType.celsius,
-      );
-      yield SettingsState(settings: newSettings);
+    if (event is UpdateSettings) {
+      yield SettingsState(settings: event.newSettings);
     }
   }
 }
