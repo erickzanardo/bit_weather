@@ -56,11 +56,11 @@ class _SettingsPanelState extends State<SettingsPanel> {
             children: [
               Text(l10n.useCelsiusLabel),
               Switch(
-                  key: const Key('toggle_units_type'),
-                  value: _useCelsius,
-                  onChanged: (value) {
-                    setState(() => _useCelsius = value);
-                  },
+                key: const Key('toggle_units_type'),
+                value: _useCelsius,
+                onChanged: (value) {
+                  setState(() => _useCelsius = value);
+                },
               ),
             ],
           ),
@@ -69,10 +69,10 @@ class _SettingsPanelState extends State<SettingsPanel> {
             children: [
               Text(l10n.language),
               FlagSelector(
-                  flag: _flag,
-                  onChange: (flag) {
-                    setState(() => _flag = flag);
-                  },
+                flag: _flag,
+                onChange: (flag) {
+                  setState(() => _flag = flag);
+                },
               ),
             ],
           ),

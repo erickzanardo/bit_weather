@@ -8,8 +8,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       : super(
           SettingsState(
             settings: Settings(
-                units: UnitType.celsius,
-                flag: Flag.us,
+              units: UnitType.celsius,
+              flag: Flag.us,
             ),
           ),
         );

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bit_weather/models/location.dart';
+import 'package:bit_weather/models/settings.dart';
 import 'package:bit_weather/models/weather.dart';
 import 'package:bit_weather/models/weather_location.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -163,6 +164,27 @@ void main() {
 
       await pageOject.toggleUnitType();
       expect(find.text('59F°'), findsOneWidget);
+    });
+
+    testWidgets('Can change the language', (tester) async {
+      final repositoryMock = WeatherRepositoryMock();
+
+      when(() => repositoryMock.fetchWeather('Rome')).thenAnswer(
+        (_) async => createWeatherLocation(),
+      );
+
+      final pageOject = AppPageObject(tester);
+      await tester.pumpApp(App(repository: repositoryMock));
+
+      await pageOject.openCitySelection();
+      await pageOject.selectCity('Rome');
+
+      // Making sure that the search worked
+      expect(find.text('City: Rome'), findsOneWidget);
+      expect(find.text('15C°'), findsOneWidget);
+
+      await pageOject.selectLanguage(Flag.br);
+      expect(find.text('Cidade: Rome'), findsOneWidget);
     });
   });
 }

@@ -1,3 +1,4 @@
+import 'package:bit_weather/models/settings.dart';
 import 'package:bit_weather/weather_page/widgets/weather_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,17 +34,35 @@ class AppPageObject {
     await tester.pumpAndSettle();
   }
 
-  Future<void> toggleUnitType() async {
+  Future<void> openSettings() async {
     final openSettings = find.byKey(const Key('open_settings_button'));
     await tester.tap(openSettings);
     await tester.pumpAndSettle();
+  }
 
+  Future<void> saveSettings() async {
+    final saveButton = find.text('Save');
+    await tester.tap(saveButton);
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> toggleUnitType() async {
+    await openSettings();
     final toggleSwitch = find.byKey(const Key('toggle_units_type'));
     await tester.tap(toggleSwitch);
     await tester.pumpAndSettle();
 
-    final saveButton = find.text('Save');
-    await tester.tap(saveButton);
+    await saveSettings();
+  }
+
+  Future<void> selectLanguage(Flag flag) async {
+    await openSettings();
+    final flagIcon = find.byKey(
+      Key(flag == Flag.br ? 'br_option' : 'us_option'),
+    );
+    await tester.tap(flagIcon);
     await tester.pumpAndSettle();
+
+    await saveSettings();
   }
 }

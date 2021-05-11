@@ -45,7 +45,7 @@ class _FlagImage extends StatelessWidget {
     required this.url,
     required this.selected,
     required this.onSelect,
-  }): super(key: key);
+  }) : super(key: key);
 
   final String url;
   final bool selected;
