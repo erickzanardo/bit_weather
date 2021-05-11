@@ -7,7 +7,10 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc()
       : super(
           SettingsState(
-            settings: Settings(units: UnitType.celsius),
+            settings: Settings(
+                units: UnitType.celsius,
+                flag: Flag.us,
+            ),
           ),
         );
 

@@ -6,6 +6,7 @@ void main() {
     test('Correctly serializes/deserializes', () {
       final original = Settings(
         units: UnitType.celsius,
+        flag: Flag.br,
       );
 
       final json = original.toJson();

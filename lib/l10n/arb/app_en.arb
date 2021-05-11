@@ -14,8 +14,9 @@
     "updatedAt": "Updated at",
     "save": "Save",
     "useCelsiusLabel": "Use Celsius as units",
+    "language": "Language",
     "settings": "Settings",
-    "errorView": "Something wrong happend, please try again",
+    "errorView": "Something wrong happened, please try again",
     "loadingView": "Searching...",
     "locationNotFoundView": "City not found"
 }

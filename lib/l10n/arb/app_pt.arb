@@ -14,6 +14,7 @@
     "updatedAt": "Atualizado em",
     "save": "Salvar",
     "useCelsiusLabel": "Use Celsius como medidas",
+    "language": "Língua",
     "settings": "Configurações",
     "errorView": "Problemas ao buscar previsão, por favor tente novamente",
     "loadingView": "Pesquisando...",

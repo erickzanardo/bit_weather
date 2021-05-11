@@ -8,10 +8,13 @@ enum UnitType {
   celsius,
 }
 
+enum Flag { br, us }
+
 @JsonSerializable()
 class Settings extends Equatable {
   Settings({
     required this.units,
+    required this.flag,
   });
 
   factory Settings.fromJson(Map<String, dynamic> json) {
@@ -19,9 +22,10 @@ class Settings extends Equatable {
   }
 
   final UnitType units;
+  final Flag flag;
 
   Map<String, dynamic> toJson() => _$SettingsToJson(this);
 
   @override
-  List<Object?> get props => [units];
+  List<Object?> get props => [units, flag];
 }

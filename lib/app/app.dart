@@ -1,3 +1,4 @@
+import 'package:bit_weather/models/settings.dart';
 import 'package:bit_weather/repositories/weather_repository.dart';
 import 'package:bit_weather/settings/bloc/settings_bloc.dart';
 import 'package:bit_weather/settings/bloc/settings_event.dart';
@@ -22,19 +23,20 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => SettingsBloc(),
-      child: MaterialApp(
-        theme: ThemeData(
-          accentColor: const Color(0xFF13B9FF),
-          appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        ),
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: BlocBuilder<SettingsBloc, SettingsState>(
-          builder: (_, state) {
-            return Scaffold(
+      child: BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (_, state) {
+          return MaterialApp(
+            theme: ThemeData(
+              accentColor: const Color(0xFF13B9FF),
+              appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+            ),
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: Locale(state.settings.flag == Flag.br ? 'pt' : 'en', ''),
+            home: Scaffold(
               body: BlocProvider(
                 create: (context) => WeatherBloc(repository: repository),
                 child: WeatherPage(settings: state.settings),
@@ -62,9 +64,9 @@ class App extends StatelessWidget {
                   },
                 );
               }),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

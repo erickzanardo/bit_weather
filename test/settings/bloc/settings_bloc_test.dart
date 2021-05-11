@@ -8,13 +8,20 @@ import 'package:bloc_test/bloc_test.dart';
 void main() {
   group('Settings - SettingsBloc', () {
     blocTest<SettingsBloc, SettingsState>(
-      'Toggles the temperature unit',
+      'Updates the settings',
       build: () => SettingsBloc(),
       act: (bloc) {
-        return bloc.add(UpdateSettings(Settings(units: UnitType.fahrenheit)));
+        return bloc.add(UpdateSettings(Settings(
+          units: UnitType.fahrenheit,
+          flag: Flag.br,
+        )));
       },
       expect: () => [
-        SettingsState(settings: Settings(units: UnitType.fahrenheit)),
+        SettingsState(
+            settings: Settings(
+          units: UnitType.fahrenheit,
+          flag: Flag.br,
+        )),
       ],
     );
   });

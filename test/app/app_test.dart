@@ -79,7 +79,7 @@ void main() {
       await pageOject.openCitySelection();
       await pageOject.selectCity('Rome');
 
-      expect(find.text('Loading'), findsOneWidget);
+      expect(find.text('Searching...'), findsOneWidget);
       requestCompleter.complete(weatherLocation);
       await tester.pumpAndSettle();
 
@@ -102,7 +102,7 @@ void main() {
         await pageOject.openCitySelection();
         await pageOject.selectCity('Rome');
 
-        expect(find.text('Location not found'), findsOneWidget);
+        expect(find.text('City not found'), findsOneWidget);
       },
     );
 
@@ -120,7 +120,10 @@ void main() {
         await pageOject.openCitySelection();
         await pageOject.selectCity('Rome');
 
-        expect(find.text('Error'), findsOneWidget);
+        expect(
+          find.text('Something wrong happened, please try again'),
+          findsOneWidget,
+        );
       },
     );
 

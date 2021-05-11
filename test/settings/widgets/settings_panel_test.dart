@@ -18,7 +18,10 @@ void main() {
       await tester.pumpApp(
         Scaffold(
             body: SettingsPanel(
-                currentSettings: Settings(units: UnitType.celsius),
+                currentSettings: Settings(
+                  units: UnitType.celsius,
+                  flag: Flag.us,
+                ),
                 onSave: (_) {})),
       );
 
@@ -30,7 +33,10 @@ void main() {
       await tester.pumpApp(
         Scaffold(
           body: SettingsPanel(
-              currentSettings: Settings(units: UnitType.celsius),
+              currentSettings: Settings(
+                units: UnitType.celsius,
+                flag: Flag.br,
+              ),
               onSave: stub.onSave),
         ),
       );
@@ -41,7 +47,33 @@ void main() {
       final saveButton = find.text('Save');
       await tester.tap(saveButton);
 
-      verify(() => stub.onSave(Settings(units: UnitType.fahrenheit))).called(1);
+      verify(() =>
+              stub.onSave(Settings(units: UnitType.fahrenheit, flag: Flag.br)))
+          .called(1);
+    });
+
+    testWidgets('Changes the flag', (tester) async {
+      final stub = StubWrapperMock();
+      await tester.pumpApp(
+        Scaffold(
+          body: SettingsPanel(
+              currentSettings: Settings(
+                units: UnitType.celsius,
+                flag: Flag.br,
+              ),
+              onSave: stub.onSave),
+        ),
+      );
+
+      final usOption = find.byKey(const Key('us_option'));
+      await tester.tap(usOption);
+
+      final saveButton = find.text('Save');
+      await tester.tap(saveButton);
+
+      verify(() =>
+              stub.onSave(Settings(units: UnitType.celsius, flag: Flag.us)))
+          .called(1);
     });
   });
 }
