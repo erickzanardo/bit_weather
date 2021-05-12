@@ -19,5 +19,15 @@
     "errorView": "Problemas ao buscar previsão, por favor tente novamente",
     "loadingView": "Pesquisando...",
     "locationNotFoundView": "Cidade não encontrada",
-    "searchCity": "Buscar cidade"
+    "searchCity": "Buscar cidade",
+    "snowWeather": "Neve",
+    "sleetWeather": "Granizo",
+    "hailWeather": "Chuva de pedra",
+    "thunderstormWeather": "Tempestade",
+    "heavyRainWeather": "Chuva pesada",
+    "lightRainWeather": "Chuva leve",
+    "showersWeather": "Chuvisqueiro",
+    "heavyCloudWeather": "Muito nublado",
+    "lightCloudWeather": "Nublado",
+    "clearWeather": "Limpo"
 }

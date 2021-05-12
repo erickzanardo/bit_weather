@@ -19,5 +19,15 @@
     "errorView": "Something wrong happened, please try again",
     "loadingView": "Searching...",
     "locationNotFoundView": "City not found",
-    "searchCity": "Search a city"
+    "searchCity": "Search a city",
+    "snowWeather": "Snow",
+    "sleetWeather": "Sleet",
+    "hailWeather": "Hail",
+    "thunderstormWeather": "Thunderstorm",
+    "heavyRainWeather": "Heavy Rain",
+    "lightRainWeather": "Light Rain",
+    "showersWeather": "Showers",
+    "heavyCloudWeather": "Heavy clouds",
+    "lightCloudWeather": "Light Clouds",
+    "clearWeather": "Clear"
 }

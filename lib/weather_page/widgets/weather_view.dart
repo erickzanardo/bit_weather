@@ -1,4 +1,5 @@
 import 'package:bit_weather/models/settings.dart';
+import 'package:bit_weather/weather_page/widgets/weather_type_label.dart';
 import 'package:bit_weather/widgets/temperature.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,7 @@ class WeatherView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text('${l10n.city}: ${information.location.title}'),
+        WeatherTypeLabel(type: information.weather.weatherState),
         Temperature(
           celsius: information.weather.currentTemp,
           unitType: unitType,
