@@ -18,5 +18,6 @@
     "settings": "Settings",
     "errorView": "Something wrong happened, please try again",
     "loadingView": "Searching...",
-    "locationNotFoundView": "City not found"
+    "locationNotFoundView": "City not found",
+    "searchCity": "Search a city"
 }

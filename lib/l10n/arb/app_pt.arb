@@ -18,5 +18,6 @@
     "settings": "Configurações",
     "errorView": "Problemas ao buscar previsão, por favor tente novamente",
     "loadingView": "Pesquisando...",
-    "locationNotFoundView": "Cidade não encontrada"
+    "locationNotFoundView": "Cidade não encontrada",
+    "searchCity": "Buscar cidade"
 }

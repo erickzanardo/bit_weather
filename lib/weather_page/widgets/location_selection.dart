@@ -32,17 +32,32 @@ class _LocationSelectionState extends State<LocationSelection> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Dialog(
-      child: Column(
-        children: [
-          TextField(
-            key: const Key('city_text_field'),
-            controller: _controller,
-          ),
-          ElevatedButton(
-            onPressed: _onSelect,
-            child: Text(l10n.searchButtonLabel),
-          )
-        ],
+      child: Container(
+        width: 300,
+        height: 200,
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                Text(
+                  l10n.searchCity,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                TextField(
+                  autofocus: true,
+                  key: const Key('city_text_field'),
+                  controller: _controller,
+                ),
+              ],
+            ),
+            ElevatedButton(
+              onPressed: _onSelect,
+              child: Text(l10n.searchButtonLabel),
+            )
+          ],
+        ),
       ),
     );
   }
