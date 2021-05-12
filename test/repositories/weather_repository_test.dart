@@ -1,78 +1,81 @@
+import 'dart:convert';
+
 import 'package:bit_weather/models/location.dart';
+import 'package:bit_weather/models/settings.dart';
 import 'package:bit_weather/models/weather.dart';
 import 'package:bit_weather/models/weather_location.dart';
+import 'package:bit_weather/repositories/cache_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
-import 'package:mocktail/mocktail.dart';
-
-import 'package:bit_weather/repositories/weather_repository.dart';
-import 'package:bit_weather/apis/weather_api.dart';
-
-class WeatherApiMock extends Mock implements WeatherApi {}
 
 void main() {
-  group('WeatherRepository', () {
-    group('fetchWeather', () {
-      test('returns the weather for the city', () async {
-        final apiMock = WeatherApiMock();
-        when(() => apiMock.searchLocation('Rome')).thenAnswer(
-          (_) async => Location(
-            title: 'Rome',
-            woeid: 10,
-          ),
-        );
-        when(() => apiMock.searchWeather(10)).thenAnswer(
-          (_) async => WeatherLocation(
-            updatedAt: DateTime.now(),
-            location: Location(
-              title: 'Rome',
-              woeid: 10,
-            ),
-            weather: Weather(
-              id: 1,
-              minTemp: 10,
-              maxTemp: 20,
-              currentTemp: 15,
-              windSpeed: 10,
-              weatherState: WeatherType.clear,
-            ),
-          ),
-        );
-        final repository = WeatherRepository(client: apiMock);
+  final weatherLocation = WeatherLocation(
+    updatedAt: DateTime.now(),
+    location: Location(
+      title: 'Rome',
+      woeid: 10,
+    ),
+    weather: Weather(
+      id: 1,
+      minTemp: 10,
+      maxTemp: 20,
+      currentTemp: 15,
+      windSpeed: 10,
+      weatherState: WeatherType.clear,
+    ),
+  );
 
-        final weatherLocation = await repository.fetchWeather('Rome');
+  final settings = Settings(
+    flag: Flag.br,
+    units: UnitType.celsius,
+  );
 
-        expect(weatherLocation?.location.title, 'Rome');
+  group('CacheRepository', () {
+    group('load', () {
+      test('returns the caches info', () async {
+        SharedPreferences.setMockInitialValues({
+          kCacheKeyWeather: jsonEncode(weatherLocation.toJson()),
+          kCacheKeySettings: jsonEncode(settings.toJson()),
+        });
 
-        expect(weatherLocation?.weather.id, 1);
+        final cacheRepository = CacheRepository();
+        final cache = await cacheRepository.load();
+
+        expect(cache.settings, settings);
+        expect(cache.weatherLocation, weatherLocation);
       });
 
-      test('returns null if the location isn\'t found', () async {
-        final apiMock = WeatherApiMock();
-        when(() => apiMock.searchLocation('Rome'))
-            .thenAnswer((_) async => null);
+      test('returns null info if not present', () async {
+        SharedPreferences.setMockInitialValues({});
 
-        final repository = WeatherRepository(client: apiMock);
+        final cacheRepository = CacheRepository();
+        final cache = await cacheRepository.load();
 
-        final weatherLocation = await repository.fetchWeather('Rome');
-
-        expect(weatherLocation, null);
+        expect(cache.settings, null);
+        expect(cache.weatherLocation, null);
       });
 
-      test('returns null if the weather isn\'t found', () async {
-        final apiMock = WeatherApiMock();
-        when(() => apiMock.searchLocation('Rome')).thenAnswer(
-          (_) async => Location(
-            title: 'Rome',
-            woeid: 10,
-          ),
-        );
-        when(() => apiMock.searchWeather(10)).thenAnswer((_) async => null);
+      test('returns null info info is not valid', () async {
+        SharedPreferences.setMockInitialValues({
+          kCacheKeySettings: 'I am not a json',
+          kCacheKeyWeather: 'I am not a json',
+        });
 
-        final repository = WeatherRepository(client: apiMock);
+        final cacheRepository = CacheRepository();
+        final cache = await cacheRepository.load();
 
-        final weatherLocation = await repository.fetchWeather('Rome');
+        expect(cache.settings, null);
+        expect(cache.weatherLocation, null);
+      });
 
-        expect(weatherLocation, null);
+      test('can cache information', () async {
+        final cacheRepository = CacheRepository()
+          ..cacheWeather(weatherLocation)
+          ..cacheSettings(settings);
+
+        final cache = await cacheRepository.load();
+        expect(cache.settings, settings);
+        expect(cache.weatherLocation, weatherLocation);
       });
     });
   });

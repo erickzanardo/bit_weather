@@ -17,4 +17,9 @@ extension PumpApp on WidgetTester {
       ),
     );
   }
+
+  Future<void> pumpAndSettleApp(Widget widget) async {
+    await pumpApp(widget);
+    await pumpAndSettle();
+  }
 }
