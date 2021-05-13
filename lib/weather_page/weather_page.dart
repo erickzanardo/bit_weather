@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bit_weather/models/settings.dart';
+import 'package:bit_weather/weather_page/widgets/weather_background/weather_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,6 +48,59 @@ class _WeatherPageState extends State<WeatherPage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        Positioned.fill(
+          child: Center(
+            child: BlocConsumer<WeatherBloc, WeatherState>(
+              listener: (context, state) {
+                if (state is WeatherLoaded) {
+                  _refreshCompleter?.complete();
+                }
+              },
+              builder: (context, state) {
+                if (state is WeatherLoaded) {
+                  return Stack(
+                    children: [
+                      Positioned.fill(
+                        child: WeatherBackground(
+                          weatherType: state.weather.weather.weatherState,
+                        ),
+                      ),
+                      Positioned.fill(
+                        child: Center(
+                          child: RefreshIndicator(
+                            child: SingleChildScrollView(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              child: WeatherView(
+                                information: state.weather,
+                                unitType: widget.settings.units,
+                              ),
+                            ),
+                            onRefresh: () =>
+                                _onRefresh(state.weather.location.title),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+
+                if (state is WeatherLoading) {
+                  return const LoadingView();
+                }
+
+                if (state is WeatherLoadingFailed) {
+                  return const ErrorView();
+                }
+
+                if (state is WeatherNotFound) {
+                  return const NotFoundView();
+                }
+
+                return const EmptyView();
+              },
+            ),
+          ),
+        ),
         Positioned(
           top: 10,
           right: 10,
@@ -67,45 +121,6 @@ class _WeatherPageState extends State<WeatherPage> {
                 },
               );
             },
-          ),
-        ),
-        Positioned.fill(
-          child: Center(
-            child: BlocConsumer<WeatherBloc, WeatherState>(
-              listener: (context, state) {
-                if (state is WeatherLoaded) {
-                  _refreshCompleter?.complete();
-                }
-              },
-              builder: (context, state) {
-                if (state is WeatherLoaded) {
-                  return RefreshIndicator(
-                    child: SingleChildScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      child: WeatherView(
-                        information: state.weather,
-                        unitType: widget.settings.units,
-                      ),
-                    ),
-                    onRefresh: () => _onRefresh(state.weather.location.title),
-                  );
-                }
-
-                if (state is WeatherLoading) {
-                  return const LoadingView();
-                }
-
-                if (state is WeatherLoadingFailed) {
-                  return const ErrorView();
-                }
-
-                if (state is WeatherNotFound) {
-                  return const NotFoundView();
-                }
-
-                return const EmptyView();
-              },
-            ),
           ),
         ),
       ],
