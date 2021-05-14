@@ -4,7 +4,6 @@ import 'package:bit_weather/models/weather.dart';
 
 class CloudComponent extends SpriteComponent
     with HasGameRef<WeatherBackgroundGame> {
-
   CloudComponent({
     required this.weatherType,
   });
@@ -16,7 +15,7 @@ class CloudComponent extends SpriteComponent
 
   @override
   Future<void> onLoad() async {
-    switch(weatherType) {
+    switch (weatherType) {
       case WeatherType.sleet:
       case WeatherType.hail:
       case WeatherType.lightRain:
@@ -38,8 +37,8 @@ class CloudComponent extends SpriteComponent
     final rate = _cloudSpriteHeight / sprite!.image.height;
 
     size = Vector2(
-        sprite!.image.width * rate,
-        _cloudSpriteHeight,
+      sprite!.image.width * rate,
+      _cloudSpriteHeight,
     );
   }
 
@@ -49,7 +48,7 @@ class CloudComponent extends SpriteComponent
 
     x -= _cloudSpeed * dt;
 
-    if (size.x - x.abs() <= 0 ) {
+    if (size.x - x.abs() <= 0) {
       x = gameRef.size.x;
     }
   }

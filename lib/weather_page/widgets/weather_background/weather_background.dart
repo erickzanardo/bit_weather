@@ -53,7 +53,7 @@ class WeatherBackgroundGame extends BaseGame {
       case WeatherType.snow:
       case WeatherType.sleet:
       case WeatherType.hail:
-        // TODO Implement this on a follow up
+        // TODO Implement this art on a follow up
         break;
       case WeatherType.thunderstorm:
       case WeatherType.heavyRain:
